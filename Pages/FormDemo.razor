@@ -1,0 +1,45 @@
+﻿@page "/formdemo"
+@using BlazorDemoApp.Models;
+@inject ILogger<FormDemo> Logger
+
+<div class="container">
+    <h3>Form Demo</h3>
+
+    <EditForm Model="@signIn" OnSubmit="@HandleSubmit">
+        <div class="form-group">
+            <label for="useremail">Email</label>
+            <InputText type="email" @bind-Value="signIn.Email" class="form-control"
+                   placeholder="Enter your email" />
+        </div>
+
+        <div class="form-group">
+            <label for="userpassword">Password</label>
+            <InputText type="password" @bind-Value="signIn.Password" class="form-control"
+                   id="userpassword" placeholder="Enter your password" />
+        </div>
+
+        @*<div class="form-group form-check">
+            <label class="form-check-label" for="rememberme">
+                <InputText type="checkbox" @bind-Value="signIn.RememberMe" class="form-check-input"
+                       id="rememberme" />Remember me
+            </label>
+        </div>*@
+        <br />
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </EditForm>
+</div>
+
+BlazorDemoApp   asp.net core 7.0 blazor application
+
+@code {
+    private SignIn signIn = new();
+
+    private void HandleSubmit()
+    {
+        // Process the form
+        // Console.WriteLine(signIn.Email);
+
+        signIn.Email = "test";
+        Logger.LogInformation(signIn.ToString());
+    }
+}

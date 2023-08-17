@@ -1,0 +1,28 @@
+﻿@page "/jsinterop"
+@*@inject IJSRuntime JsRuntime*@
+<h3>JS Interop</h3>
+
+<section class="bg-secondary p-2" id="test-interop">
+    <h3>
+        Show Alert
+    </h3>
+    <button class="btn btn-success my-1" @onclick="ShowAlert">ShowAlert</button>
+    <button class="btn btn-success my-1" @onclick="ToggleBackground">ToggleBackground</button>
+</section>
+
+@code {
+    [Inject]
+    private IJSRuntime JsRuntime { get; set; } = null!;
+
+    private async Task ShowAlert()
+    {
+        await JsRuntime.InvokeVoidAsync("showAlert");
+    }
+
+    private bool isWhite = true;
+    private async Task ToggleBackground()
+    {
+        isWhite = !isWhite;
+        await JsRuntime.InvokeVoidAsync("toggleBackground", isWhite);
+    }
+}
